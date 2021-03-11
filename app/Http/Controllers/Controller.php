@@ -10,5 +10,9 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
 	public $data = [];
+    public function __construct()
+    {
+        $this->data['user_tab'] = '';
+    }
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
