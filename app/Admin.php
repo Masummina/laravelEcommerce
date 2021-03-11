@@ -38,16 +38,6 @@ class Admin extends Authenticatable
     ];
 
 
-
-    public function address(){
-        return $this->hasOne('App\Address');
-    }
-
-
-    public function posts(){
-        return $this->hasMany('Post::class', 'user_id', 'id');
-    }
-
     public function payments()
     {
         return $this->hasMany(Payment::class);
@@ -57,4 +47,10 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Receipt::class);
     }
+
+    public function sales()
+    {
+        return $this->hasMany(SaleInvoice::class);
+    }
+    
 }

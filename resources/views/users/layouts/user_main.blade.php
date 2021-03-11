@@ -10,7 +10,7 @@
         
             <div class="user_option m-4 clearfix">
                 <button type="button" class="float-right btn btn-primary btn-sm ml-1" data-toggle="modal" data-target="#salesModel">
-                    <i class="fa fa-plus"></i> Sales
+                    <i class="fa fa-plus"></i> New Sales
                 </button>
 
                 <button type="button" class="float-right btn btn-primary btn-sm ml-1" data-toggle="modal" data-target="#purchaseModel">
@@ -173,6 +173,67 @@
 
 
 {{-- model Receipts End --}}
+
+
+
+
+{{-- model Sales start --}}
+
+<div class="modal fade" id="salesModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add new Payment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+          
+          {{-- form start --}}
+
+               {{-- <form action="{{url('users')}}" method="post"> --}}
+        
+            {!! Form::open(['route' => ['receipts.store', $user->id], 'method'=>'post']) !!}
+          
+              <div class="form-group row"> 
+                <label class="col-sm-2 col-form-label" for="name">Name:<span class="text-danger">*</span></label>
+                <div class="col-sm-10">
+                  {{ Form::date('date', NULL, ['class'=>'form-control', 'id'=>'name', 'placeholder'=>'Enter Your name']) }}
+              </div>
+              </div>
+              <div class="form-group row">
+                  <label class="col-sm-2 col-form-label" for="amount">amount: <span class="text-danger">*</span> </label>
+                  <div class="col-sm-10">
+                      {{ Form::text('amount', NULL, ['class'=>'form-control', 'id'=>'amount', 'placeholder'=>'Enter Your amount']) }}
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label class="col-sm-2 col-form-label" for="address">Address:</label>
+                  <div class="col-sm-10">
+                      {{ Form::textarea('note', NULL, ['class'=>'form-control', 'rows'=>'3', 'id'=>'note', 'placeholder'=>'Enter Your note']) }}
+                  </div>
+              </div>
+
+
+              <button type="submit" class="btn btn-primary float-right">Submit</button>
+            {!! Form::close() !!}	
+
+          {{-- form End --}}
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{-- model Sales End --}}
 
 
 

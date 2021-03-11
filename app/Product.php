@@ -1,13 +1,28 @@
 <?php
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    public function category(){
-        return $this->belongsTo(Categorie::class);
+
+	protected $fillable = ['title', 'description', 'category_id', 'cost_price', 'price'];
+    
+    public function category()
+    {
+    	return $this->belongsTo(Category::class);
     }
-    protected $fillable = ['title', 'description', 'cost_price', 'price', 'category_id'];
+
+    /**
+    * Getting array for select option
+    **/
+    public static function arrayForSelect() {
+    	$arr = [];
+    	$products = Product::all();
+        foreach ($products as $product) {
+            $arr[$product->id] = $product->title;
+        } 
+
+        return $arr;
+    }
 }
