@@ -52,7 +52,14 @@ Route::delete('users/{id}/invoices/{invoice_id}/{item_id}', 'UserSalesController
 Route::post('users/{id}/receipts/{invoice_id?}', 		    'UserReceiptsController@store')->name('user.receipts.store');
 
 
+// Routes for purchase
 Route::get('users/{id}/purchase',                 'UserPurchaseController@index')->name('purchase');
+Route::post('users/{id}/purchases', 							'UserPurchasesController@createInvoice')->name('user.purchases.store');
+Route::get('users/{id}/purchases/{invoice_id}', 				'UserPurchasesController@invoice')->name('user.purchases.invoice_details');
+Route::delete('users/{id}/purchases/{invoice_id}', 				'UserPurchasesController@destroy')->name('user.purchases.destroy');
+Route::post('users/{id}/purchases/{invoice_id}', 				'UserPurchasesController@addItem')->name('user.purchases.add_item');
+Route::delete('users/{id}/purchases/{invoice_id}/{item_id}', 	'UserPurchasesController@destroyItem')->name('user.purchases.delete_item');
+
 
 
 
