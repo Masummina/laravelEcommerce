@@ -1,43 +1,58 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Http\Requests\ReceiptsRequest as RequestsReceiptsRequest;
+use App\Http\Requests\ReceiptRequest;
 use App\Receipt;
-use Session;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class UserReceiptsController extends Controller
 {
     public function __construct()
+	{
+		$this->data['tab_menu'] = 'receipts';
+	}
+
+    public function index( $id )
     {
-       $this->data['user_tab'] = 'receipts';
-    }
-    public function index($id){
-        $this->data['user'] = User::findOrFail($id);
-        return view('users.receipts.index', $this->data);
-        // return $this->data['sales'] = $user->sales;
+    	$this->data['user'] 	= User::findOrFail($id);
+
+    	return view('users.receipts.receipts', $this->data);
     }
 
-    public function store(RequestsReceiptsRequest $request, $user_id){
-        $data = $request->all();
-        $data['user_id'] = $user_id;
-        $data['admin_id'] = Auth::id();
-        if(Receipt::create($data)){
-            Session::flash('message', 'Receipt create successfully');
+
+    public function store(ReceiptRequest $request, $user_id, $invoice_id = null)
+    {
+    	$formData 				= $request->all();
+    	$formData['user_id'] 	= $user_id;
+    	$formData['admin_id'] 	= Auth::id();
+        if ($invoice_id) {
+            $formData['sale_invoice_id']   = $invoice_id;
         }
 
-        return redirect()->route('receipts', ['id'=> $user_id]);
-
-    }
-
-    public function destroy($id, $receipt_id){
-        if(Receipt::find($receipt_id)->delete()){
-            Session::flash('message', 'Payment deleted successfully');
+    	if( Receipt::create($formData) ) {
+            Session::flash('message', 'Receipt Added Successfully');
         }
-
-        return redirect()->route('receipts', ['id'=> $id]);
+        if ($invoice_id) {
+            return redirect()->route( 'user.sales.invoice_details', ['id' => $user_id, 'invoice_id' => $invoice_id] );
+        } else {
+            return redirect()->route('user.receipts', ['id' => $user_id]);    
+        }
+        
     }
+
+
+    public function destroy($user_id, $receipt_id)
+    {
+    	if( Receipt::destroy($receipt_id) ) {
+            Session::flash('message', 'Receipt Deleted Successfully');
+        }
+        
+        return redirect()->route('user.receipts', ['id' => $user_id]);
+    }
+
+
 }
+ 
