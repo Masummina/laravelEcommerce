@@ -1,6 +1,6 @@
-@extends('layout.main')
+@extends('layout.app')
 
-@section('main_content')
+@section('contents')
 
 	@include('users.user_layout_content')
 

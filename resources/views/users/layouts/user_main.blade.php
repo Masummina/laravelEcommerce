@@ -1,6 +1,5 @@
-@extends('layout.main')
-
-@section('main_content')
+@extends('layouts.app')
+@section('contents')
 
 	<div class="row clearfix page_header">
 		<div class="col-md-4">
