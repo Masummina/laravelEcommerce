@@ -1,6 +1,5 @@
-@extends('users.user_layout')
-
-@section('user_content')
+@extends('layouts.app')
+@section('contents')
 
 	<!-- DataTales Example -->
   	<div class="card shadow mb-4">

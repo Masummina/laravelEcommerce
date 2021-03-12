@@ -51,7 +51,6 @@ Route::delete('users/{id}/invoices/{invoice_id}/{item_id}', 'UserSalesController
 
 Route::post('users/{id}/receipts/{invoice_id?}', 		    'UserReceiptsController@store')->name('user.receipts.store');
 
-
 // Routes for purchase
 Route::get('users/{id}/purchase',                 'UserPurchaseController@index')->name('purchase');
 Route::post('users/{id}/purchases', 							'UserPurchasesController@createInvoice')->name('user.purchases.store');
@@ -60,12 +59,18 @@ Route::delete('users/{id}/purchases/{invoice_id}', 				'UserPurchasesController@
 Route::post('users/{id}/purchases/{invoice_id}', 				'UserPurchasesController@addItem')->name('user.purchases.add_item');
 Route::delete('users/{id}/purchases/{invoice_id}/{item_id}', 	'UserPurchasesController@destroyItem')->name('user.purchases.delete_item');
 
-
+Route::get('reposts/sales', 		'Reports\SaleReportController@index')->name('reports.sales');
+Route::get('reposts/purchases', 	'Reports\PurchaseReportController@index')->name('reports.purchases');
 
 
 Route::get('users/{id}/payment',                 'UserPaymentController@index')->name('payment');
 Route::post('users/{id}/payment',                'UserPaymentController@store')->name('payment.store');
 Route::delete('users/{id}/payment/{payment_id}', 'UserPaymentController@destroy')->name('payment.deleted');
+
+Route::get('reposts/payments', 	'Reports\PaymentReportController@index')->name('reports.payments');
+Route::get('reposts/receipts', 	'Reports\ReceiptReportController@index')->name('reports.receipts');
+
+
 
 
 Route::get('users/{id}/receipts',                   'UserReceiptsController@index')->name('receipts');
@@ -73,9 +78,10 @@ Route::post('users/{id}/receipts',                  'UserReceiptsController@stor
 Route::delete('users/{id}/receipts/{receipt_id}',   'UserReceiptsController@destroy')->name('receipts.delete');
 
 
-Route::resource('products', 'ProductController');
+Route::resource('products',   'ProductController');
 Route::resource('categories', 'CategoryController');
 
+Route::get('stocks',          'ProductsStockController@index')->name('stocks');
 
 });
 

@@ -1,6 +1,5 @@
-@extends('users.invoice_layout')
-
-@section('user_content')
+@extends('layouts.app')
+@section('contents')
 
 	<div class="card shadow mb-4">
 	    <div class="card-header py-3">
